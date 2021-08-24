@@ -27,15 +27,12 @@ class BookControllerTest {
     @MockBean
     UserService userService;
 
-    @Autowired
-    private BookRepository bookRepository;
-
     @Test
     void shouldListAllBooksWhenPresent() throws Exception {
         List<Book> books = new ArrayList<>();
         Book book = new Book("title", "author name", 300);
         books.add(book);
-        when(bookService.fetchAll()).thenReturn(books);
+        when(bookService.fetchAll(any(),any())).thenReturn(books);
 
         mockMvc.perform(get("/books")
                 .contentType(MediaType.APPLICATION_JSON))
@@ -46,7 +43,7 @@ class BookControllerTest {
 
     @Test
     void shouldBeEmptyListWhenNoBooksPresent() throws Exception {
-        when(bookService.fetchAll()).thenReturn(new ArrayList<>());
+        when(bookService.fetchAll(any(),any())).thenReturn(new ArrayList<>());
 
         mockMvc.perform(get("/books")
                 .contentType(MediaType.APPLICATION_JSON))
@@ -60,13 +57,12 @@ class BookControllerTest {
         List<Book> books = new ArrayList<>();
         Book book = new Book("title", "author name", 300);
         books.add(book);
-        when(bookService.fetchAll()).thenReturn(books);
+        when(bookService.fetchAll(any(),any())).thenReturn(books);
 
         mockMvc.perform(get("/books")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.length()").value(1))
-                .andExpect(jsonPath("$[0].count").value(2));
-        verify(bookService, times(1)).fetchAll();
+                .andExpect(jsonPath("$.length()").value(1));
+        verify(bookService, times(1)).fetchAll(any(),any());
     }
 }
