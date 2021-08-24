@@ -51,4 +51,20 @@ class BookControllerTest {
                 .andExpect(jsonPath("$.length()").value(0));
         verify(bookService, times(1)).fetchAll();
     }
+
+    @Test
+    void shouldReturnBooksCount() throws Exception {
+        List<Book> books = new ArrayList<>();
+        Book book = new Book("title", "author name", 300);
+        book.setCount(2);
+        books.add(book);
+        when(bookService.fetchAll()).thenReturn(books);
+
+        mockMvc.perform(get("/books")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.length()").value(1))
+                .andExpect(jsonPath("$[0].count").value(2));
+        verify(bookService, times(1)).fetchAll();
+    }
 }
