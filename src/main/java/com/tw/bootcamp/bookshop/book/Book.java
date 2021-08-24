@@ -12,16 +12,6 @@ public class Book {
     private String authorName;
     private Integer price;
 
-    public Integer getCount() {
-        return count;
-    }
-
-    public void setCount(Integer count) {
-        this.count = count;
-    }
-
-    private Integer count;
-
     public Book() {
     }
 

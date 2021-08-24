@@ -27,6 +27,9 @@ class BookControllerTest {
     @MockBean
     UserService userService;
 
+    @Autowired
+    private BookRepository bookRepository;
+
     @Test
     void shouldListAllBooksWhenPresent() throws Exception {
         List<Book> books = new ArrayList<>();
@@ -56,7 +59,6 @@ class BookControllerTest {
     void shouldReturnBooksCount() throws Exception {
         List<Book> books = new ArrayList<>();
         Book book = new Book("title", "author name", 300);
-        book.setCount(2);
         books.add(book);
         when(bookService.fetchAll()).thenReturn(books);
 

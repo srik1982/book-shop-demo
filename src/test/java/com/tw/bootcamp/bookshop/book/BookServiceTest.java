@@ -54,7 +54,7 @@ class BookServiceTest {
         bookRepository.save(lowPrice);
         bookRepository.save(highPrice);
 
-        List<Book> books = bookService.fetchAll(true);
+        List<Book> books = bookService.fetchAll(Sort.by(Sort.Direction.ASC, "price"));
 
         assertEquals(2, books.size());
         assertEquals("title", books.get(0).getName());

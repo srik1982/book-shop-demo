@@ -19,15 +19,11 @@ public class BookService {
         return bookRepository.findAllByOrderByPriceDesc();
     }
 
-    public List<Book> fetchAll(boolean asc) {
-        if(asc) {
-            return bookRepository.findAllByOrderByPriceAsc();
-        }else{
-            return bookRepository.findAllByOrderByPriceDesc();
-        }
-    }
-
     public List<Book> fetchAll(Sort sort){
         return bookRepository.findAll(sort);
+    }
+
+    public List<Book> fetchAll(String sortByColumn, String sortOrder) {
+        return fetchAll(Sort.by(Sort.Direction.fromString(sortOrder),sortByColumn));
     }
 }
