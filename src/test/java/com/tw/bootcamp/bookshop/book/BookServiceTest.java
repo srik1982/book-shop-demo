@@ -57,7 +57,7 @@ class BookServiceTest {
         List<Book> books = bookService.fetchAll(Sort.by(Sort.Direction.ASC, "price"));
 
         assertEquals(2, books.size());
-        assertEquals("title", books.get(0).getName());
+        assertEquals("costlier", books.get(0).getName());
         assertEquals(300, books.get(0).getPrice());
     }
 
